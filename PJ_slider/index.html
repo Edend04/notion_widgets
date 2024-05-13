@@ -118,10 +118,12 @@ body {
     <button id="next"><i class="fas fa-arrow-right"></i></button>
   </div>
   <!-- partial -->
-  <script>
+ <script>
     const slides = document.querySelectorAll(".slide");
     const nextButton = document.getElementById("next");
     const prevButton = document.getElementById("prev");
+    const auto = true;
+    const intervalTime = 5000;
     let slideInterval;
 
     const nextSlide = () => {
@@ -146,11 +148,22 @@ body {
 
     nextButton.addEventListener("click", () => {
       nextSlide();
+      if (auto) {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, intervalTime);
+      }
     });
     prevButton.addEventListener("click", () => {
       prevSlide();
-
+      if (auto) {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, intervalTime);
+      }
     });
+
+    if (auto) {
+      slideInterval = setInterval(nextSlide, intervalTime);
+    }
 
   </script>
 
